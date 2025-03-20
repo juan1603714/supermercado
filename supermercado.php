@@ -25,7 +25,6 @@ if (!isset($_SESSION["usuario_id"])) {
             flex: 1;
             padding: 20px;
         }
-        /* Estilos para la sección de bienvenida */
         .welcome-section {
             text-align: center;
             padding: 50px 20px;
@@ -35,25 +34,6 @@ if (!isset($_SESSION["usuario_id"])) {
             margin: 20px auto;
             max-width: 900px;
             animation: fadeIn 1.5s ease-in-out;
-        }
-        .welcome-section h2 {
-            font-size: 2.8rem;
-            font-weight: bold;
-            animation: slideUp 1s ease-out;
-        }
-        .welcome-section p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
         .footer {
             background: #343a40;
@@ -66,7 +46,7 @@ if (!isset($_SESSION["usuario_id"])) {
 </head>
 <body>
 
-    <!-- Navbar (No se modifica) -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="supermercado.php">Supermercado</a>
@@ -80,11 +60,41 @@ if (!isset($_SESSION["usuario_id"])) {
         </div>
     </nav>
 
-    <!-- Sección de Bienvenida Mejorada -->
+    <!-- Sección de Bienvenida -->
     <div class="container content-container">
         <div class="welcome-section">
             <h2>¡Bienvenido al Supermercado!</h2>
             <p>Explora nuestras categorías, encuentra los mejores productos y aprovecha ofertas exclusivas.</p>
+        </div>
+    </div>
+
+    <!-- Modal de Perfil -->
+    <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="perfilModalLabel">Perfil de Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="perfilForm">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $_SESSION['usuario_nombre']; ?>" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo</label>
+                            <input type="email" class="form-control" id="correo" name="correo" value="<?php echo $_SESSION['usuario_correo']; ?>" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password" disabled>
+                        </div>
+                        <button type="button" id="editarPerfil" class="btn btn-primary">Editar</button>
+                        <button type="submit" id="guardarPerfil" class="btn btn-success d-none">Guardar</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -94,6 +104,34 @@ if (!isset($_SESSION["usuario_id"])) {
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.getElementById("editarPerfil").addEventListener("click", function() {
+            document.getElementById("nombre").removeAttribute("disabled");
+            document.getElementById("correo").removeAttribute("disabled");
+            document.getElementById("password").removeAttribute("disabled");
+            this.classList.add("d-none");
+            document.getElementById("guardarPerfil").classList.remove("d-none");
+        });
+
+        document.getElementById("perfilForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let formData = new FormData(this);
+            formData.append("usuario_id", "<?php echo $_SESSION['usuario_id']; ?>");
+
+            fetch("actualizar_perfil.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                window.location.reload();
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
 
 </body>
 </html>

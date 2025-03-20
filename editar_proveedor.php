@@ -6,13 +6,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST["nombre"];
     $telefono = $_POST["telefono"];
 
-    $stmt = $conexion->prepare("UPDATE proveedores SET nombre=?, telefono=? WHERE id=?");
+    if (empty($id) || empty($nombre) || empty($telefono)) {
+        echo "Todos los campos son obligatorios.";
+        exit();
+    }
+
+    $stmt = $conexion->prepare("UPDATE provedores SET nombre = ?, telefono = ? WHERE id = ?");
     $stmt->bind_param("ssi", $nombre, $telefono, $id);
 
     if ($stmt->execute()) {
-        echo "Proveedor actualizado.";
+        echo "Proveedor actualizado correctamente.";
     } else {
-        echo "Error al actualizar.";
+        echo "Error al actualizar proveedor.";
     }
+
+    $stmt->close();
 }
 ?>

@@ -100,6 +100,14 @@ if (isset($_SESSION["usuario_id"])) {
             <label class="form-label">Contraseña</label>
             <input type="password" name="contraseña" class="form-control" required>
           </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Rol</label>
+            <select name="usuario_rol" class="form-control" required>
+              <option value="Administrador">Administrador</option>
+              <option value="Vendedor">Vendedor</option>
+              <option value="Comprador">Comprador</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-custom w-100"><i class="fas fa-user-plus"></i> Registrarse</button>
         </form>
         <p class="mt-3">¿Ya tienes cuenta? <span class="btn-toggle" onclick="toggleForm()">Inicia sesión aquí</span></p>
@@ -108,6 +116,7 @@ if (isset($_SESSION["usuario_id"])) {
   </div>
 
   <script>
+    // Función para alternar entre el formulario de login y el formulario de registro
     function toggleForm() {
       document.getElementById("loginForm").classList.toggle("hidden");
       document.getElementById("registerForm").classList.toggle("hidden");

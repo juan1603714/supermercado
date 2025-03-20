@@ -95,6 +95,9 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contraseña`) VALUES
 (2, 'david', 'perez@gmail.com', '$2y$10$hW22jDYzln3fuhkTuKT0cuuAE31GG2YoGHPSyLA.xift3NwsgbhJG'),
 (3, 'juanito', 'juanito@gmail.com', '$2y$10$U0.IDMz1GJyTBKRE5CfVTeWY8Hd6tGZL4vOhL9FphBMqUGvMiZxs2');
 
+
+
+
 --
 -- Índices para tablas volcadas
 --

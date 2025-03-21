@@ -4,6 +4,14 @@ if (!isset($_SESSION["usuario_id"])) {
     header("Location: index.php");
     exit();
 }
+
+// Verifica si los datos del usuario están en la sesión
+if (!isset($_SESSION["usuario_nombre"]) || !isset($_SESSION["usuario_correo"])) {
+    echo "<script>alert('Error: No se encontró la información del usuario.'); window.location.href = 'index.php';</script>";
+    exit();
+}
+
+$usuario_rol = $_SESSION["usuario_rol"];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,7 +41,6 @@ if (!isset($_SESSION["usuario_id"])) {
             border-radius: 10px;
             margin: 20px auto;
             max-width: 900px;
-            animation: fadeIn 1.5s ease-in-out;
         }
         .footer {
             background: #343a40;
@@ -46,14 +53,21 @@ if (!isset($_SESSION["usuario_id"])) {
 </head>
 <body>
 
-    <!-- Navbar -->
+    <!-- Navbar con menú dinámico según el rol -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="supermercado.php">Supermercado</a>
             <div class="navbar-nav ms-auto">
                 <a href="producto.php" class="btn btn-primary mx-2">Productos</a>
-                <a href="proveedor.php" class="btn btn-primary mx-2">Proveedores</a>
-                <a href="categorias.php" class="btn btn-primary mx-2">Categorías</a>
+
+                <?php if ($usuario_rol == "Administrador" || $usuario_rol == "Vendedor") : ?>
+                    <a href="proveedor.php" class="btn btn-primary mx-2">Proveedores</a>
+                <?php endif; ?>
+
+                <?php if ($usuario_rol == "Administrador") : ?>
+                    <a href="categorias.php" class="btn btn-primary mx-2">Categorías</a>
+                <?php endif; ?>
+
                 <button class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#perfilModal">Ver Perfil</button>
                 <a href="logout.php" class="btn btn-danger">Cerrar Sesión</a>
             </div>
@@ -63,7 +77,7 @@ if (!isset($_SESSION["usuario_id"])) {
     <!-- Sección de Bienvenida -->
     <div class="container content-container">
         <div class="welcome-section">
-            <h2>¡Bienvenido al Supermercado!</h2>
+            <h2>¡Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario_nombre']); ?>!</h2>
             <p>Explora nuestras categorías, encuentra los mejores productos y aprovecha ofertas exclusivas.</p>
         </div>
     </div>
@@ -80,15 +94,11 @@ if (!isset($_SESSION["usuario_id"])) {
                     <form id="perfilForm">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $_SESSION['usuario_nombre']; ?>" disabled>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo htmlspecialchars($_SESSION['usuario_nombre']); ?>" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="correo" class="form-label">Correo</label>
-                            <input type="email" class="form-control" id="correo" name="correo" value="<?php echo $_SESSION['usuario_correo']; ?>" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Nueva Contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password" disabled>
+                            <input type="email" class="form-control" id="correo" name="correo" value="<?php echo htmlspecialchars($_SESSION['usuario_correo']); ?>" disabled>
                         </div>
                         <button type="button" id="editarPerfil" class="btn btn-primary">Editar</button>
                         <button type="submit" id="guardarPerfil" class="btn btn-success d-none">Guardar</button>
@@ -109,7 +119,6 @@ if (!isset($_SESSION["usuario_id"])) {
         document.getElementById("editarPerfil").addEventListener("click", function() {
             document.getElementById("nombre").removeAttribute("disabled");
             document.getElementById("correo").removeAttribute("disabled");
-            document.getElementById("password").removeAttribute("disabled");
             this.classList.add("d-none");
             document.getElementById("guardarPerfil").classList.remove("d-none");
         });
@@ -117,8 +126,10 @@ if (!isset($_SESSION["usuario_id"])) {
         document.getElementById("perfilForm").addEventListener("submit", function(event) {
             event.preventDefault();
 
-            let formData = new FormData(this);
+            let formData = new FormData();
             formData.append("usuario_id", "<?php echo $_SESSION['usuario_id']; ?>");
+            formData.append("nombre", document.getElementById("nombre").value);
+            formData.append("correo", document.getElementById("correo").value);
 
             fetch("actualizar_perfil.php", {
                 method: "POST",

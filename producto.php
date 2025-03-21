@@ -10,6 +10,9 @@ include_once 'conexion.php';
 // Obtener productos desde la base de datos
 $sql = "SELECT * FROM productos";
 $result = $conexion->query($sql);
+
+// Obtener el rol del usuario
+$usuario_rol = $_SESSION["usuario_rol"];
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +66,8 @@ $result = $conexion->query($sql);
 <div class="container">
     <h2 class="mt-4 text-center">Gestión de Productos</h2>
 
-    <!-- Formulario para agregar productos -->
+    <!-- Formulario para agregar productos (Solo visible si NO es comprador) -->
+    <?php if ($usuario_rol !== "Comprador") : ?>
     <form id="productForm" action="agregar.php" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label class="form-label">Nombre del Producto</label>
@@ -79,6 +83,7 @@ $result = $conexion->query($sql);
         </div>
         <button type="submit" class="btn btn-primary">Agregar Producto</button>
     </form>
+    <?php endif; ?>
 
     <!-- Tabla de productos -->
     <table class="table table-bordered mt-4">
@@ -97,8 +102,12 @@ $result = $conexion->query($sql);
                 <td><?= htmlspecialchars($producto['nombre']) ?></td>
                 <td>$<?= number_format($producto['precio'], 2) ?></td>
                 <td>
-                    <a href="editar.php?id=<?= $producto['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="eliminarproductos.php?id=<?= $producto['id'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                    <?php if ($usuario_rol === "Comprador") : ?>
+                        <a href="comprar.php?id=<?= $producto['id'] ?>" class="btn btn-success btn-sm">Comprar</a>
+                    <?php else : ?>
+                        <a href="editar.php?id=<?= $producto['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="eliminarproductos.php?id=<?= $producto['id'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                    <?php endif; ?>
                 </td>
             </tr>
             <?php endwhile; ?>

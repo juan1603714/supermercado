@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validar que los campos no estén vacíos
     if (empty($nombre) || empty($correo) || empty($contraseña) || empty($usuario_rol)) {
-        echo "<script>alert('Completa todos los campos.'); window.location.href = 'index.php';</script>";
+        echo "<script>alert('⚠️ Completa todos los campos.'); window.location.href = 'index.php';</script>";
         exit();
     }
 
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $stmt->store_result();
     if ($stmt->num_rows > 0) {
-        echo "<script>alert('El correo ya está registrado.'); window.location.href = 'index.php';</script>";
+        echo "<script>alert('⚠️ El correo ya está registrado. Inicia sesión.'); window.location.href = 'index.php';</script>";
         exit();
     }
     $stmt->close();
@@ -29,12 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insertar el nuevo usuario con el rol seleccionado
     $stmt = $conexion->prepare("INSERT INTO usuarios (nombre, correo, contraseña, rol_nombre) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $nombre, $correo, $contraseña_hash, $usuario_rol); // Asegúrate de que "rol_nombre" es el campo correcto en tu base de datos
+    $stmt->bind_param("ssss", $nombre, $correo, $contraseña_hash, $usuario_rol);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Registro exitoso. Ahora inicia sesión.'); window.location.href = 'index.php';</script>";
+        echo "<script>alert('✅ Registro exitoso. Ahora inicia sesión.'); window.location.href = 'index.php';</script>";
     } else {
-        echo "<script>alert('Error al registrar.'); window.location.href = 'index.php';</script>";
+        echo "<script>alert('❌ Error al registrar. Inténtalo de nuevo.'); window.location.href = 'index.php';</script>";
     }
     $stmt->close();
 }

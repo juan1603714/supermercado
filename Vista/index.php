@@ -70,7 +70,7 @@ if (isset($_SESSION["usuario_id"])) {
       <!-- Formulario de Inicio de Sesión -->
       <div id="loginForm">
         <h5 class="text-muted">Accede a tu cuenta</h5>
-        <form action="procesar_login.php" method="POST">
+        <form action="../modelo/procesar_login.php" method="POST">
           <div class="mb-3 text-start">
             <label class="form-label">Correo</label>
             <input type="email" name="correo" class="form-control" required>
@@ -87,7 +87,7 @@ if (isset($_SESSION["usuario_id"])) {
       <!-- Formulario de Registro (Oculto por defecto) -->
       <div id="registerForm" class="hidden">
         <h5 class="text-muted">Crea una cuenta</h5>
-        <form action="procesar_registro.php" method="POST">
+        <form action="../modelo/procesar_registro.php" method="POST">
           <div class="mb-3 text-start">
             <label class="form-label">Nombre</label>
             <input type="text" name="nombre" class="form-control" required>

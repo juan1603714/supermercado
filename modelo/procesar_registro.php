@@ -1,5 +1,6 @@
 <?php
-include_once 'conexion.php';
+include_once '../config/conexion.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = trim($_POST["nombre"]);
@@ -19,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $stmt->store_result();
     if ($stmt->num_rows > 0) {
-        echo "<script>alert('⚠️ El correo ya está registrado. Inicia sesión.'); window.location.href = 'index.php';</script>";
+        echo "<script>alert('⚠️ El correo ya está registrado. Inicia sesión.'); window.location.href = '../vista/index.php';</script>";
         exit();
     }
     $stmt->close();

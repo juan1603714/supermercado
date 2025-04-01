@@ -1,5 +1,6 @@
 <?php
-include_once 'conexion.php';
+include_once '../config/conexion.php';
+
 
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $id = $_GET["id"];

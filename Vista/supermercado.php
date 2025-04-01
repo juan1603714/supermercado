@@ -56,20 +56,20 @@ $usuario_rol = $_SESSION["usuario_rol"];
     <!-- Navbar con menú dinámico según el rol -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="supermercado.php">Supermercado</a>
+            <a class="navbar-brand" href="../vista/supermercado.php">Supermercado</a>
             <div class="navbar-nav ms-auto">
-                <a href="producto.php" class="btn btn-primary mx-2">Productos</a>
+                <a href="../vista/producto.php" class="btn btn-primary mx-2">Productos</a>
 
                 <?php if ($usuario_rol == "Administrador" || $usuario_rol == "Vendedor") : ?>
-                    <a href="proveedor.php" class="btn btn-primary mx-2">Proveedores</a>
+                    <a href="../vista/proveedor.php" class="btn btn-primary mx-2">Proveedores</a>
                 <?php endif; ?>
 
                 <?php if ($usuario_rol == "Administrador") : ?>
-                    <a href="categorias.php" class="btn btn-primary mx-2">Categorías</a>
+                    <a href="../vista/categorias.php" class="btn btn-primary mx-2">Categorías</a>
                 <?php endif; ?>
 
                 <button class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#perfilModal">Ver Perfil</button>
-                <a href="logout.php" class="btn btn-danger">Cerrar Sesión</a>
+                <a href="../modelo/logout.php" class="btn btn-danger">Cerrar Sesión</a>
             </div>
         </div>
     </nav>

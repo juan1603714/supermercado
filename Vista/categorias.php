@@ -1,8 +1,9 @@
 <?php
-include_once 'conexion.php';
+include_once '../config/conexion.php';
+
 session_start();
 if (!isset($_SESSION["usuario_id"])) {
-    header("Location: index.php");
+    header("Location: ../vista/index.php");
     exit();
 }
 ?>
@@ -18,7 +19,7 @@ if (!isset($_SESSION["usuario_id"])) {
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="supermercado.php">Supermercado</a>
+            <a class="navbar-brand" href="../vista/supermercado.php">Supermercado</a>
             <div class="navbar-nav ms-auto">
                 <a href="producto.php" class="btn btn-primary mx-2">Productos</a>
                 <a href="proveedor.php" class="btn btn-primary mx-2">Proveedores</a>
@@ -32,7 +33,7 @@ if (!isset($_SESSION["usuario_id"])) {
         <h2 class="text-center">Gestión de Categorías</h2>
         
         <!-- Formulario para agregar categoría -->
-        <form action="agregar_categoria.php" method="POST" enctype="multipart/form-data" class="mb-4">
+        <form action="../modelo/agregar_categoria.php" method="POST" enctype="multipart/form-data" class="mb-4">
             <div class="mb-3">
                 <label class="form-label">Nombre de la Categoría</label>
                 <input type="text" name="nombre" class="form-control" required>
@@ -61,8 +62,8 @@ if (!isset($_SESSION["usuario_id"])) {
                         <td><img src="data:image/jpeg;base64,<?= base64_encode($row['imagen']) ?>" width="100"></td>
                         <td><?= htmlspecialchars($row['nombre']) ?></td>
                         <td>
-                            <a href="editar_categoria.php?id=<?= $row['id'] ?>" class="btn btn-warning">Editar</a>
-                            <a href="eliminar_categoria.php?id=<?= $row['id'] ?>" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta categoría?')">Eliminar</a>
+                            <a href="../modelo/editar_categoria.php?id=<?= $row['id'] ?>" class="btn btn-warning">Editar</a>
+                            <a href="../modelo/eliminar_categoria.php?id=<?= $row['id'] ?>" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta categoría?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>

@@ -1,5 +1,6 @@
 <?php
-include_once 'conexion.php';
+include_once '../config/conexion.php';
+
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["usuario_rol"] = $usuario["rol_nombre"]; // Guardar rol en la sesión
 
         // **Redirigir SIEMPRE a supermercado.php**
-        header("Location: supermercado.php");
+        header("Location: ../vista/supermercado.php");
         exit();
     } else {
         echo "<script>alert('⚠️ Correo o contraseña incorrectos.'); window.location.href = 'index.php';</script>";

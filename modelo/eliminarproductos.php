@@ -1,5 +1,5 @@
 <?php
-include_once 'conexion.php';
+include_once '../config/conexion.php';
 
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
@@ -8,7 +8,7 @@ if (isset($_GET["id"])) {
     $stmt->bind_param("i", $id);
     
     if ($stmt->execute()) {
-        header("Location: producto.php");
+        header("Location: ../modelo/producto.php");
     } else {
         echo "Error al eliminar el producto.";
     }

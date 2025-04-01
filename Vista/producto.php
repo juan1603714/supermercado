@@ -1,11 +1,11 @@
 <?php
 session_start();
 if (!isset($_SESSION["usuario_id"])) {
-    header("Location: index.php");
+    header("Location: ../vista/index.php");
     exit();
 }
 
-include_once 'conexion.php';
+include_once '../config/conexion.php';
 
 // Obtener productos desde la base de datos
 $sql = "SELECT * FROM productos";
@@ -56,7 +56,7 @@ $usuario_rol = $_SESSION["usuario_rol"];
     <div class="container">
         <a class="navbar-brand" href="supermercado.php">Supermercado</a>
         <div class="navbar-nav ms-auto">
-            <a href="producto.php" class="btn btn-primary mx-2">Productos</a>
+            <a href="../vista/producto.php" class="btn btn-primary mx-2">Productos</a>
             <button class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#perfilModal">Ver Perfil</button>
             <a href="logout.php" class="btn btn-danger">Cerrar Sesión</a>
         </div>
@@ -68,7 +68,7 @@ $usuario_rol = $_SESSION["usuario_rol"];
 
     <!-- Formulario para agregar productos (Solo visible si NO es comprador) -->
     <?php if ($usuario_rol !== "Comprador") : ?>
-    <form id="productForm" action="agregar.php" method="POST" enctype="multipart/form-data">
+    <form id="productForm" action="../modelo/agregar.php" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label class="form-label">Nombre del Producto</label>
             <input type="text" name="nombre" class="form-control" required>
@@ -106,7 +106,7 @@ $usuario_rol = $_SESSION["usuario_rol"];
                         <a href="comprar.php?id=<?= $producto['id'] ?>" class="btn btn-success btn-sm">Comprar</a>
                     <?php else : ?>
                         <a href="editar.php?id=<?= $producto['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
-                        <a href="eliminarproductos.php?id=<?= $producto['id'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                        <a href="../modelo/eliminarproductos.php?id=<?= $producto['id'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
                     <?php endif; ?>
                 </td>
             </tr>

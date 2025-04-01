@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include '../config/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST["nombre"];
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($stmt->execute()) {
         echo "Categoría agregada con éxito.";
-        header("Location: categorias.php");
+        header("Location: ../vista/categorias.php");
     } else {
         echo "Error al agregar la categoría.";
     }

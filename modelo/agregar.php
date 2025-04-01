@@ -1,5 +1,5 @@
 <?php
-include_once 'conexion.php';
+include_once '../config/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST["nombre"];
@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sds", $nombre, $precio, $imagen);
         
         if ($stmt->execute()) {
-            header("Location: producto.php");
+            header("Location: ../vista/producto.php");
         } else {
             echo "Error al agregar producto.";
         }

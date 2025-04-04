@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    font-family: 'Raleway', sans-serif;
+}
+
+.content-container {
+    flex: 1;
+    padding: 20px;
+}
+
+.welcome-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(to right, #ffcc00, #ff9900);
+    color: white;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+.footer {
+    background: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+}

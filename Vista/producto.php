@@ -22,32 +22,7 @@ $usuario_rol = $_SESSION["usuario_rol"];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .navbar {
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .container {
-            margin-top: 20px;
-        }
-        .table img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        .btn-custom {
-            background: #007bff;
-            color: white;
-            transition: 0.3s;
-        }
-        .btn-custom:hover {
-            background: #0056b3;
-            transform: scale(1.05);
-        }
-    </style>
+    <link href="../publico/producto.css" rel="stylesheet">
 </head>
 <body>
 

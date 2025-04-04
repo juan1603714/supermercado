@@ -20,36 +20,7 @@ $usuario_rol = $_SESSION["usuario_rol"];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supermercado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: #f8f9fa;
-            font-family: 'Raleway', sans-serif;
-        }
-        .content-container {
-            flex: 1;
-            padding: 20px;
-        }
-        .welcome-section {
-            text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(to right, #ffcc00, #ff9900);
-            color: white;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 900px;
-        }
-        .footer {
-            background: #343a40;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: auto;
-        }
-    </style>
+    <link href="../publico/supermercado.css" rel="stylesheet">
 </head>
 <body>
 
@@ -114,35 +85,7 @@ $usuario_rol = $_SESSION["usuario_rol"];
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        document.getElementById("editarPerfil").addEventListener("click", function() {
-            document.getElementById("nombre").removeAttribute("disabled");
-            document.getElementById("correo").removeAttribute("disabled");
-            this.classList.add("d-none");
-            document.getElementById("guardarPerfil").classList.remove("d-none");
-        });
-
-        document.getElementById("perfilForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            let formData = new FormData();
-            formData.append("usuario_id", "<?php echo $_SESSION['usuario_id']; ?>");
-            formData.append("nombre", document.getElementById("nombre").value);
-            formData.append("correo", document.getElementById("correo").value);
-
-            fetch("actualizar_perfil.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                window.location.reload();
-            })
-            .catch(error => console.error("Error:", error));
-        });
-    </script>
+    <script src="../publico/supermercado.js"></script>
 
 </body>
 </html>

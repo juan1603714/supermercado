@@ -18,48 +18,7 @@ if (isset($_SESSION["usuario_id"])) {
   <!-- Íconos FontAwesome -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <!-- Estilos personalizados -->
-  <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: #f8f9fa;
-    }
-    .container {
-      max-width: 400px;
-      margin-top: 50px;
-    }
-    .card {
-      border-radius: 15px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-      background: white;
-      padding: 30px;
-      text-align: center;
-    }
-    .btn-custom {
-      background: #007bff;
-      color: white;
-      transition: all 0.3s ease-in-out;
-    }
-    .btn-custom:hover {
-      background: #0056b3;
-      transform: scale(1.05);
-    }
-    .btn-toggle {
-      color: #007bff;
-      cursor: pointer;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    .btn-toggle:hover {
-      color: #0056b3;
-    }
-    .icon {
-      font-size: 50px;
-      color: #007bff;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
+  <link href="../publico/index.css" rel="stylesheet">
 </head>
 <body>
   <div class="container d-flex justify-content-center align-items-center vh-100">
@@ -115,12 +74,6 @@ if (isset($_SESSION["usuario_id"])) {
     </div>
   </div>
 
-  <script>
-    // Función para alternar entre el formulario de login y el formulario de registro
-    function toggleForm() {
-      document.getElementById("loginForm").classList.toggle("hidden");
-      document.getElementById("registerForm").classList.toggle("hidden");
-    }
-  </script>
+  <script src="../publico/index.js"></script>
 </body>
 </html>
